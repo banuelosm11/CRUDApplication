@@ -61,7 +61,7 @@ public class RequestControllerTest {
     public void getAllPeopleTest(){
         Iterable<Person> ppl = rc.getAllPeople();
         long size = ppl.spliterator().getExactSizeIfKnown();
-        assertEquals(size, 0);
+        assertEquals(size, 1);
     }
 
     @Test
@@ -78,8 +78,7 @@ public class RequestControllerTest {
 
     @Test
     public void postPerson(){
-        Person p = new Person("Aurora", 27);
-        p.setId(1);
+        Person p = new Person(1, "Aurora", 27);
 
         HttpStatus stat = requestController.postPerson(p);
 
@@ -89,13 +88,12 @@ public class RequestControllerTest {
 
     @Test
     public void putPerson(){
-        Person p = new Person("Aurora", 27);
-        p.setId(1);
+        Person p = new Person(1, "Aurora", 27);
+        rc.postPerson(p);
 
-        Person updatep = new Person("Aurora", 28);
-        p.setId(1);
+        Person updatep = new Person(1,"Aurora", 28);
 
-        HttpStatus stat = requestController.putPerson(p);
+        HttpStatus stat = rc.putPerson(updatep);
 
         assertEquals(stat, HttpStatus.OK);
 
