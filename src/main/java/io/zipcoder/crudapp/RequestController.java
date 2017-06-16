@@ -1,7 +1,11 @@
 package io.zipcoder.crudapp;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.xml.ws.Response;
 
 /**
  * Created by aurorabanuelos on 6/15/17.
@@ -25,21 +29,24 @@ public class RequestController{
     }
 
     @RequestMapping(value="/Person/{id}", method=RequestMethod.DELETE)
-    public void deletePersonById(@PathVariable Integer id){
+    public HttpStatus deletePersonById(@PathVariable Integer id){
         personRepo.delete(id);
+        return HttpStatus.GONE;
     }
 
     @RequestMapping(value="/Person/post", method=RequestMethod.POST)
-    public void postPerson(@RequestBody Person input){
+    public HttpStatus postPerson(@RequestBody Person input){
         personRepo.save(input);
+        return HttpStatus.CREATED;
     }
 
     @RequestMapping(value="/Person/put", method=RequestMethod.PUT)
-    public void putPerson(@RequestBody Person input){
+    public HttpStatus putPerson(@RequestBody Person input){
         Person p = personRepo.findOne(input.getId());
         p.setName(input.getName());
         p.setAge(input.getAge());
         personRepo.save(p);
+        return HttpStatus.OK;
     }
 
 }
