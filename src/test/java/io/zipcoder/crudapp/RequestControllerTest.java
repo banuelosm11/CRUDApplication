@@ -64,5 +64,42 @@ public class RequestControllerTest {
         assertEquals(size, 0);
     }
 
+    @Test
+    public void deletePersonByIdTest(){
+
+        Person p= new Person();
+        p.setId(1);
+
+        HttpStatus stat = requestController.deletePersonById(1);
+
+        assertEquals(stat, HttpStatus.GONE);
+
+    }
+
+    @Test
+    public void postPerson(){
+        Person p = new Person("Aurora", 27);
+        p.setId(1);
+
+        HttpStatus stat = requestController.postPerson(p);
+
+        assertEquals(stat, HttpStatus.CREATED);
+
+    }
+
+    @Test
+    public void putPerson(){
+        Person p = new Person("Aurora", 27);
+        p.setId(1);
+
+        Person updatep = new Person("Aurora", 28);
+        p.setId(1);
+
+        HttpStatus stat = requestController.putPerson(p);
+
+        assertEquals(stat, HttpStatus.OK);
+
+    }
+
 
 }
